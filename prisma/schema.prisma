@@ -1,0 +1,262 @@
+// FILE: prisma/schema.prisma
+// UPDATED FOR SUPABASE
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================
+// EMPLOYEES & ATTENDANCE
+// ============================================
+
+model Employee {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  position    String?
+  phone       String?
+  active      Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  attendance  Attendance[]
+  
+  @@map("employees")
+}
+
+model Driver {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  licenseNo   String?
+  phone       String?
+  active      Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  attendance  DriverAttendance[]
+  deliveries  Delivery[]
+  
+  @@map("drivers")
+}
+
+model Attendance {
+  id         String    @id @default(cuid())
+  date       DateTime
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id])
+  present    Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  
+  @@unique([date, employeeId])
+  @@index([date])
+  @@map("attendance")
+}
+
+model DriverAttendance {
+  id        String   @id @default(cuid())
+  date      DateTime
+  driverId  String
+  driver    Driver   @relation(fields: [driverId], references: [id])
+  present   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([date, driverId])
+  @@index([date])
+  @@map("driver_attendance")
+}
+
+// ============================================
+// VEHICLES & FLEET
+// ============================================
+
+model Vehicle {
+  id              String            @id @default(cuid())
+  registrationNo  String            @unique
+  type            String            @default("Truck")
+  model           String?
+  capacity        Float?
+  status          String            @default("Active")
+  purchaseDate    DateTime?
+  lastServiceDate DateTime?
+  active          Boolean           @default(true)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  
+  operations      VehicleOperation[]
+  fuelEntries     FuelEntry[]
+  deliveries      Delivery[]
+  mileageLogs     MileageLog[]
+  
+  @@map("vehicles")
+}
+
+model VehicleOperation {
+  id          String   @id @default(cuid())
+  date        DateTime
+  vehicleId   String
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id])
+  engaged     Boolean  @default(false)
+  hoursWorked Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([date, vehicleId])
+  @@index([date])
+  @@map("vehicle_operations")
+}
+
+model MileageLog {
+  id        String   @id @default(cuid())
+  date      DateTime
+  vehicleId String
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  mileage   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([date, vehicleId])
+  @@index([date])
+  @@map("mileage_logs")
+}
+
+// ============================================
+// FUEL MANAGEMENT
+// ============================================
+
+model FuelEntry {
+  id        String   @id @default(cuid())
+  date      DateTime
+  vehicleId String
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  product   String
+  quantity  Float
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([date])
+  @@index([vehicleId])
+  @@map("fuel_entries")
+}
+
+// ============================================
+// DELIVERIES
+// ============================================
+
+model Delivery {
+  id          String   @id @default(cuid())
+  date        DateTime
+  vehicleId   String
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id])
+  driverId    String?
+  driver      Driver?  @relation(fields: [driverId], references: [id])
+  destination String
+  material    String
+  wbTicket    String?
+  dNote       String?
+  quantity    Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([date])
+  @@index([vehicleId])
+  @@index([destination])
+  @@map("deliveries")
+}
+
+// ============================================
+// EXCAVATOR OPERATIONS
+// ============================================
+
+model Excavator {
+  id           String          @id @default(cuid())
+  name         String          @unique
+  model        String?
+  serialNo     String?
+  active       Boolean         @default(true)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  operationLogs ExcavatorLog[]
+  
+  @@map("excavators")
+}
+
+model ExcavatorLog {
+  id            String    @id @default(cuid())
+  date          DateTime
+  excavatorId   String
+  excavator     Excavator @relation(fields: [excavatorId], references: [id])
+  location      String
+  bucketHrs     Float?
+  breakerHrs    Float?
+  totalHrs      Float
+  meterReading  Float?
+  fuelUsed      Float?
+  hydraulicOil  Float?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([date])
+  @@index([excavatorId])
+  @@map("excavator_logs")
+}
+
+// ============================================
+// QUARRY PRODUCTION
+// ============================================
+
+model QuarryProduction {
+  id        String   @id @default(cuid())
+  date      DateTime
+  shift     String
+  product   String
+  trucks    Int
+  tonnes    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([date])
+  @@index([shift])
+  @@map("quarry_production")
+}
+
+// ============================================
+// USERS & AUTHENTICATION
+// ============================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("USER")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("users")
+}
+
+// ============================================
+// SYSTEM LOGS
+// ============================================
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  module    String
+  recordId  String?
+  details   String?
+  createdAt DateTime @default(now())
+  
+  @@index([userId])
+  @@index([module])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
