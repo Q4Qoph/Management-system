@@ -1,4 +1,4 @@
-// FILE: app/components/DashboardView.tsx
+// FILE: app/components/DashboardView.tsx (FIXED)
 import { Users, Truck, Fuel, Clock, Navigation, Download } from 'lucide-react';
 import StatCard from './StatCard';
 import ActionButton from './ActionButton';
@@ -68,18 +68,34 @@ export default function DashboardView({
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold mb-4 text-gray-800">Recent Deliveries</h3>
         <div className="space-y-2">
-          {deliveries.slice(0, 5).map((delivery: any, idx: number) => (
-            <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded border">
-              <div className="flex items-center gap-3">
-                <Truck className="w-5 h-5 text-blue-600" />
-                <div>
-                  <p className="font-medium text-gray-800">{delivery.vehicle} → {delivery.destination}</p>
-                  <p className="text-sm text-gray-600">{delivery.material} | {delivery.quantity} tonnes</p>
+          {deliveries.slice(0, 5).map((delivery: any, idx: number) => {
+            // ✅ FIXED: Safe extraction of vehicle registration
+            const vehicleReg = delivery.vehicle && typeof delivery.vehicle === 'object'
+              ? delivery.vehicle.registrationNo
+              : (typeof delivery.vehicle === 'string' ? delivery.vehicle : 'N/A');
+            
+            // ✅ FIXED: Safe date formatting
+            const deliveryDate = delivery.date 
+              ? new Date(delivery.date).toLocaleDateString()
+              : 'N/A';
+
+            return (
+              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded border">
+                <div className="flex items-center gap-3">
+                  <Truck className="w-5 h-5 text-blue-600" />
+                  <div>
+                    <p className="font-medium text-gray-800">
+                      {vehicleReg} → {delivery.destination}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {delivery.material} | {delivery.quantity} tonnes
+                    </p>
+                  </div>
                 </div>
+                <span className="text-sm text-gray-500">{deliveryDate}</span>
               </div>
-              <span className="text-sm text-gray-500">{delivery.date}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

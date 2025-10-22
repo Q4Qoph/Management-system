@@ -1,4 +1,4 @@
-// FILE: app/components/ExcavatorsView.tsx (UPDATED)
+// FILE: app/components/ExcavatorsView.tsx (FIXED)
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -64,6 +64,7 @@ export default function ExcavatorsView({
               className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Excavator</label>
             <select
@@ -74,6 +75,7 @@ export default function ExcavatorsView({
               {excavators.map(ex => <option key={ex} value={ex}>{ex}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Location *</label>
             <select
@@ -85,6 +87,7 @@ export default function ExcavatorsView({
               {LOCATIONS.map(loc => <option key={loc} value={loc}>{loc}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Bucket Hours</label>
             <input
@@ -96,6 +99,7 @@ export default function ExcavatorsView({
               placeholder="0.0"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Breaker Hours</label>
             <input
@@ -107,6 +111,7 @@ export default function ExcavatorsView({
               placeholder="0.0"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Total Hours *</label>
             <input
@@ -118,6 +123,7 @@ export default function ExcavatorsView({
               placeholder="0.0"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Meter Reading</label>
             <input
@@ -129,6 +135,7 @@ export default function ExcavatorsView({
               placeholder="0.0"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Fuel Used (L)</label>
             <input
@@ -140,6 +147,7 @@ export default function ExcavatorsView({
               placeholder="0.0"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Hydraulic Oil (L)</label>
             <input
@@ -152,6 +160,7 @@ export default function ExcavatorsView({
             />
           </div>
         </div>
+
         <button
           onClick={handleSubmit}
           className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
@@ -180,17 +189,28 @@ export default function ExcavatorsView({
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {excavatorLogs.map((log, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-sm text-gray-800">{new Date(log.date).toLocaleDateString()}</td>
-                    <td className="px-4 py-3 text-sm font-medium text-gray-900">{log.excavator?.name}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600">{log.location}</td>
-                    <td className="px-4 py-3 text-sm text-right text-gray-800">{log.bucketHrs || '-'}</td>
-                    <td className="px-4 py-3 text-sm text-right text-gray-800">{log.breakerHrs || '-'}</td>
-                    <td className="px-4 py-3 text-sm text-right font-medium text-gray-900">{log.totalHrs}</td>
-                    <td className="px-4 py-3 text-sm text-right text-gray-800">{log.fuelUsed || '-'}</td>
-                  </tr>
-                ))}
+                {excavatorLogs.map((log, idx) => {
+                  // ✅ FIXED: Safe extraction of excavator name
+                  const excavatorName = log.excavator && typeof log.excavator === 'object'
+                    ? log.excavator.name
+                    : 'N/A';
+                  
+                  return (
+                    <tr key={idx} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 text-sm text-gray-800">
+                        {new Date(log.date).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                        {excavatorName}
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-600">{log.location}</td>
+                      <td className="px-4 py-3 text-sm text-right text-gray-800">{log.bucketHrs || '-'}</td>
+                      <td className="px-4 py-3 text-sm text-right text-gray-800">{log.breakerHrs || '-'}</td>
+                      <td className="px-4 py-3 text-sm text-right font-medium text-gray-900">{log.totalHrs}</td>
+                      <td className="px-4 py-3 text-sm text-right text-gray-800">{log.fuelUsed || '-'}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
