@@ -1,4 +1,4 @@
-// FILE: app/components/FuelView.tsx (UPDATED)
+// FILE: app/components/FuelView.tsx (FIXED)
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -52,6 +52,7 @@ export default function FuelView({
               className="text-gray-950 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Vehicle *</label>
             <select
@@ -64,16 +65,18 @@ export default function FuelView({
               {excavators.map(e => <option key={e} value={e}>{e}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Product</label>
             <select
               value={newFuel.product}
               onChange={(e) => setNewFuel({...newFuel, product: e.target.value})}
-              className=" text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               {FUEL_PRODUCTS.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Quantity (Liters) *</label>
             <input
@@ -85,6 +88,7 @@ export default function FuelView({
               placeholder="0.00"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Amount (KES) *</label>
             <input
@@ -97,6 +101,7 @@ export default function FuelView({
             />
           </div>
         </div>
+
         <button
           onClick={handleSubmit}
           className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
@@ -120,15 +125,31 @@ export default function FuelView({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {fuelEntries.map((entry, idx) => (
-                <tr key={idx} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-800">{new Date(entry.date).toLocaleDateString()}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{entry.vehicle?.registrationNo || entry.vehicle?.name}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{entry.product}</td>
-                  <td className="px-4 py-3 text-sm text-right text-gray-800">{parseFloat(entry.quantity).toFixed(2)}</td>
-                  <td className="px-4 py-3 text-sm text-right font-medium text-gray-900">{parseFloat(entry.amount).toLocaleString()}</td>
-                </tr>
-              ))}
+              {fuelEntries.map((entry, idx) => {
+                // Safe extraction of vehicle name/registration
+                let vehicleName = 'N/A';
+                if (entry.vehicle && typeof entry.vehicle === 'object') {
+                  vehicleName = entry.vehicle.registrationNo || entry.vehicle.name || 'N/A';
+                }
+                
+                return (
+                  <tr key={idx} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-800">
+                      {new Date(entry.date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                      {vehicleName}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{entry.product}</td>
+                    <td className="px-4 py-3 text-sm text-right text-gray-800">
+                      {parseFloat(entry.quantity).toFixed(2)}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-right font-medium text-gray-900">
+                      {parseFloat(entry.amount).toLocaleString()}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

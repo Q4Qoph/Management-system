@@ -1,4 +1,4 @@
-// FILE: app/components/DeliveriesView.tsx (UPDATED)
+// FILE: app/components/DeliveriesView.tsx (FIXED)
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -53,6 +53,7 @@ export default function DeliveriesView({
               className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Vehicle Reg *</label>
             <select
@@ -64,6 +65,7 @@ export default function DeliveriesView({
               {vehicles.map(v => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Destination *</label>
             <select
@@ -75,6 +77,7 @@ export default function DeliveriesView({
               {DESTINATIONS.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Material</label>
             <select
@@ -86,6 +89,7 @@ export default function DeliveriesView({
               {MATERIALS.map(m => <option key={m} value={m}>{m}</option>)}
             </select>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">W/Bridge Ticket No</label>
             <input
@@ -96,6 +100,7 @@ export default function DeliveriesView({
               placeholder="Enter ticket number"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">D/Note No</label>
             <input
@@ -106,6 +111,7 @@ export default function DeliveriesView({
               placeholder="Enter delivery note"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Quantity (Tonnes) *</label>
             <input
@@ -118,6 +124,7 @@ export default function DeliveriesView({
             />
           </div>
         </div>
+
         <button
           onClick={handleSubmit}
           className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
@@ -142,16 +149,29 @@ export default function DeliveriesView({
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {deliveries.map((delivery, idx) => (
-                <tr key={idx} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-800">{new Date(delivery.date).toLocaleDateString()}</td>
-                  <td className="px-4 py-3 text-sm font-medium text-gray-900">{delivery.vehicle?.registrationNo}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{delivery.destination}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{delivery.material}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{delivery.wbTicket}</td>
-                  <td className="px-4 py-3 text-sm text-right font-medium text-gray-900">{parseFloat(delivery.quantity).toFixed(2)}</td>
-                </tr>
-              ))}
+              {deliveries.map((delivery, idx) => {
+                // Safe extraction of vehicle registration
+                const vehicleReg = delivery.vehicle && typeof delivery.vehicle === 'object' 
+                  ? delivery.vehicle.registrationNo 
+                  : 'N/A';
+                
+                return (
+                  <tr key={idx} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-800">
+                      {new Date(delivery.date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                      {vehicleReg}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{delivery.destination}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{delivery.material}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600">{delivery.wbTicket || '-'}</td>
+                    <td className="px-4 py-3 text-sm text-right font-medium text-gray-900">
+                      {parseFloat(delivery.quantity).toFixed(2)}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
