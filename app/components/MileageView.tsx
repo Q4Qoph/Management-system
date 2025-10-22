@@ -50,10 +50,10 @@ export default function MileageView({
                   <td className="px-4 py-3">
                     <input
                       type="number"
-                      step="0.1"
+                      step="1.0"
                       value={mileage[vehicle]}
                       onChange={(e) => setMileage({...mileage, [vehicle]: e.target.value})}
-                      className="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-gray-900 w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="0.0"
                     />
                   </td>

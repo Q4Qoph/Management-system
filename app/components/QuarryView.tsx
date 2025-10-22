@@ -45,7 +45,7 @@ export default function QuarryView({
               type="date"
               value={newQuarryProd.date}
               onChange={(e) => setNewQuarryProd({...newQuarryProd, date: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           <div>
@@ -53,7 +53,7 @@ export default function QuarryView({
             <select
               value={newQuarryProd.shift}
               onChange={(e) => setNewQuarryProd({...newQuarryProd, shift: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="day">Day Shift</option>
               <option value="night">Night Shift</option>
@@ -64,7 +64,7 @@ export default function QuarryView({
             <select
               value={newQuarryProd.product}
               onChange={(e) => setNewQuarryProd({...newQuarryProd, product: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               {MATERIALS.map(m => <option key={m} value={m}>{m}</option>)}
             </select>
@@ -75,7 +75,7 @@ export default function QuarryView({
               type="number"
               value={newQuarryProd.trucks}
               onChange={(e) => setNewQuarryProd({...newQuarryProd, trucks: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0"
             />
           </div>
@@ -86,7 +86,7 @@ export default function QuarryView({
               step="0.01"
               value={newQuarryProd.tonnes}
               onChange={(e) => setNewQuarryProd({...newQuarryProd, tonnes: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
             />
           </div>

@@ -49,7 +49,7 @@ export default function FuelView({
               type="date"
               value={newFuel.date}
               onChange={(e) => setNewFuel({...newFuel, date: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-950 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           <div>
@@ -57,7 +57,7 @@ export default function FuelView({
             <select
               value={newFuel.vehicle}
               onChange={(e) => setNewFuel({...newFuel, vehicle: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-950 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Vehicle</option>
               {vehicles.map(v => <option key={v} value={v}>{v}</option>)}
@@ -69,7 +69,7 @@ export default function FuelView({
             <select
               value={newFuel.product}
               onChange={(e) => setNewFuel({...newFuel, product: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className=" text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               {FUEL_PRODUCTS.map(p => <option key={p} value={p}>{p}</option>)}
             </select>
@@ -78,10 +78,10 @@ export default function FuelView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Quantity (Liters) *</label>
             <input
               type="number"
-              step="0.01"
+              step="1"
               value={newFuel.quantity}
               onChange={(e) => setNewFuel({...newFuel, quantity: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-950 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
             />
           </div>
@@ -89,10 +89,10 @@ export default function FuelView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Amount (KES) *</label>
             <input
               type="number"
-              step="0.01"
+              step="1"
               value={newFuel.amount}
               onChange={(e) => setNewFuel({...newFuel, amount: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-950 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
             />
           </div>

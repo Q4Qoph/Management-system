@@ -61,7 +61,7 @@ export default function ExcavatorsView({
               type="date"
               value={newExcavatorLog.date}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, date: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           <div>
@@ -69,7 +69,7 @@ export default function ExcavatorsView({
             <select
               value={newExcavatorLog.excavator}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, excavator: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               {excavators.map(ex => <option key={ex} value={ex}>{ex}</option>)}
             </select>
@@ -79,7 +79,7 @@ export default function ExcavatorsView({
             <select
               value={newExcavatorLog.location}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, location: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Location</option>
               {LOCATIONS.map(loc => <option key={loc} value={loc}>{loc}</option>)}
@@ -89,10 +89,10 @@ export default function ExcavatorsView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Bucket Hours</label>
             <input
               type="number"
-              step="0.1"
+              step="1"
               value={newExcavatorLog.bucketHrs}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, bucketHrs: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.0"
             />
           </div>
@@ -100,10 +100,10 @@ export default function ExcavatorsView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Breaker Hours</label>
             <input
               type="number"
-              step="0.1"
+              step="0.5"
               value={newExcavatorLog.breakerHrs}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, breakerHrs: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.0"
             />
           </div>
@@ -111,10 +111,10 @@ export default function ExcavatorsView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Total Hours *</label>
             <input
               type="number"
-              step="0.1"
+              step="0.5"
               value={newExcavatorLog.totalHrs}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, totalHrs: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.0"
             />
           </div>
@@ -122,10 +122,10 @@ export default function ExcavatorsView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Meter Reading</label>
             <input
               type="number"
-              step="0.1"
+              step="0.5"
               value={newExcavatorLog.meterReading}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, meterReading: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.0"
             />
           </div>
@@ -133,10 +133,10 @@ export default function ExcavatorsView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Fuel Used (L)</label>
             <input
               type="number"
-              step="0.1"
+              step="0.5"
               value={newExcavatorLog.fuel}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, fuel: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.0"
             />
           </div>
@@ -144,10 +144,10 @@ export default function ExcavatorsView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Hydraulic Oil (L)</label>
             <input
               type="number"
-              step="0.1"
+              step="0.5"
               value={newExcavatorLog.hydraulicOil}
               onChange={(e) => setNewExcavatorLog({...newExcavatorLog, hydraulicOil: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.0"
             />
           </div>

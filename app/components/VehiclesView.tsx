@@ -69,7 +69,7 @@ export default function VehiclesView({
                       step="0.5"
                       value={vehicleHours[vehicle]}
                       onChange={(e) => setVehicleHours({...vehicleHours, [vehicle]: e.target.value})}
-                      className="w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-gray-900 w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="0"
                     />
                     <span className="ml-2 text-sm text-gray-600">hrs</span>

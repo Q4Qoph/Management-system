@@ -50,7 +50,7 @@ export default function DeliveriesView({
               type="date"
               value={newDelivery.date}
               onChange={(e) => setNewDelivery({...newDelivery, date: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
           <div>
@@ -58,7 +58,7 @@ export default function DeliveriesView({
             <select
               value={newDelivery.vehicle}
               onChange={(e) => setNewDelivery({...newDelivery, vehicle: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Vehicle</option>
               {vehicles.map(v => <option key={v} value={v}>{v}</option>)}
@@ -69,7 +69,7 @@ export default function DeliveriesView({
             <select
               value={newDelivery.destination}
               onChange={(e) => setNewDelivery({...newDelivery, destination: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Destination</option>
               {DESTINATIONS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -80,7 +80,7 @@ export default function DeliveriesView({
             <select
               value={newDelivery.material}
               onChange={(e) => setNewDelivery({...newDelivery, material: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Select Material</option>
               {MATERIALS.map(m => <option key={m} value={m}>{m}</option>)}
@@ -92,7 +92,7 @@ export default function DeliveriesView({
               type="text"
               value={newDelivery.wbTicket}
               onChange={(e) => setNewDelivery({...newDelivery, wbTicket: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter ticket number"
             />
           </div>
@@ -102,7 +102,7 @@ export default function DeliveriesView({
               type="text"
               value={newDelivery.dNote}
               onChange={(e) => setNewDelivery({...newDelivery, dNote: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter delivery note"
             />
           </div>
@@ -110,10 +110,10 @@ export default function DeliveriesView({
             <label className="block text-sm font-medium text-gray-700 mb-2">Quantity (Tonnes) *</label>
             <input
               type="number"
-              step="0.01"
+              step="1"
               value={newDelivery.quantity}
               onChange={(e) => setNewDelivery({...newDelivery, quantity: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="0.00"
             />
           </div>
